@@ -5,6 +5,8 @@ Unlike HTML, cdkDrag is not implemented for SVG.
 
 A library I found is plain-draggable, and this project is a test of its SVG+Angular dragging ability.
 
+![Screenshot](./src/assets/screenshot.png)
+
 # Notes
 
 1. Good start for reading would be [plain-draggable issues/96](https://github.com/anseki/plain-draggable/issues/96)
