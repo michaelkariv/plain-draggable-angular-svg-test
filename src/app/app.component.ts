@@ -1,4 +1,5 @@
 import {Component, ViewChild} from '@angular/core';
+
 declare const PlainDraggable: any;
 
 @Component({
@@ -9,13 +10,18 @@ declare const PlainDraggable: any;
 export class AppComponent {
   title = 'plain-draggable angular svg test';
 
-  @ViewChild('container', { static: true })
+  @ViewChild('container', {static: true})
   public container: any;
 
-  @ViewChild('draggable', { static: true })
+  @ViewChild('draggable', {static: true})
   public handle: any;
 
   public ngOnInit(): void {
+
+
+  }
+
+  public initDraggable(): void {
     const container = this.container.nativeElement;
     const handle = this.handle.nativeElement;
 
@@ -30,8 +36,14 @@ export class AppComponent {
         setTimeout(init, 200);
       }
     }
-    init();
 
+    init();
   }
+
+  ngAfterViewInit() {
+    console.log('ngAfterViewInit()');
+    this.initDraggable();
+  }
+
 
 }
