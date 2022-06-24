@@ -1,0 +1,45 @@
+<h1>{{title}}</h1>
+<div style="width: 300px; border: 1px solid red">
+
+  <svg #container
+       xmlns="http://www.w3.org/2000/svg"
+       viewBox="0  0 1000 1000"
+       style="font-family: 'Arial Black', sans-serif; font-size: 36pt"
+  >
+
+          <circle
+            cx="0"
+            cy="0"
+            r="80"
+            fill="rgba(255,252,216,0.7)"
+            stroke="rgb(253,160,26)"
+            transform="translate( 100, 200)"
+          />
+
+
+       <g  #draggable transform="translate(100, 200)">
+          <circle
+            cx="400"
+            cy="100"
+            r="80"
+            fill="rgba(255,252,216,0.7)"
+            stroke="rgb(253,160,26)"
+          />
+
+
+          <text
+            x="400"
+            y="100"
+            dominant-baseline="middle"
+            text-anchor="middle"
+            fill="rgba(255,252,216,0.7)"
+            stroke="rgb(253,160,26)"
+
+          >2
+          </text>
+        </g>
+
+
+  </svg>
+
+</div>
