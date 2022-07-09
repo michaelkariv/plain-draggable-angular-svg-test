@@ -48,7 +48,12 @@ Accordingly, in the ts @ViewChildren is used
 ```
 This works ok, until a bound property changes and the component gets redrawn. Dragging stops.
 
+
+
+
 Full project illustrating the issue is in the public github project.
 https://github.com/michaelkariv/plain-draggable-angular-svg-test
+
+![Screenshot2](./src/assets/screenshot2.png)
 
 To make dragging stop, just change the text of the label that appears beneath all the components.
