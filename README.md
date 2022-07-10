@@ -1,9 +1,21 @@
 # The Project
 
 This tiny Angular project is to test dragging in an SVG-templated component.
-Unlike HTML, cdkDrag is not implemented for SVG. 
 
-A library I found is plain-draggable, and this project is a test of its SVG+Angular dragging ability.
+Those who use Angular have all the incentives to use Angular Material,
+which now has it [own drag class](https://material.angular.io/cdk/drag-drop/overview)  
+in the CDK, which works great for HTML DOM components, especially reordering lists.  
+
+However cdkDrag is not implemented for SVG well. 
+According to [this stackoverflow item](https://stackoverflow.com/questions/67297846/drag-and-drop-an-svg-element-works-with-angular-7-but-not-with-angular-11) 
+CDK drag used to work for Angular 7 but not for Angular 11. 
+
+So for SVG based components, what are the options? 
+I can see 3 possibilities
+
+1. The plain-draggable library. This is my choice, and this is what this test project is about
+2. manually implementing dragging with mouseDown etc.
+3. Using heavy and sometimes non-free 3rd party libraries like d3 or green sock
 
 ![Screenshot](./src/assets/screenshot.png)
 
@@ -24,36 +36,10 @@ I wish there were `@types/plain-draggable` typings, and Angular module but there
             ]
 ```
 
-# Problem with multiple handles after change detection
-
-I have submitted this issue to https://github.com/anseki/plain-draggable/issues/112
-
-## The issue
-I have made a test with Angular, SVG and draggable handle. I have made a separate component out of SVG, and it all works nicely. I summed up all the issues other people discussed regarding Angular, SVG etc in the readme.md
-
-However here is the problem I am not sure how to solve.
-I want multiple draggable handles in a component. So I use *ngFor and ng-container to generate the code
-```HTML    
-<ng-container     *ngFor="let t of texts; let i=index"  
-       <g  #draggables [attr.transform]="'translate(200,' + 400*i + ')'">     <circle...
-```
-Accordingly, in the ts @ViewChildren is used
-```Typescript
-  @ViewChildren('draggables')
-  public handles: QueryList<ElementRef> | undefined;
-...
-        for (let i = 0; i < handles.length; i++) {
-          const draggable = new PlainDraggable(handles[i].nativeElement);
-        }
-```
-This works ok, until a bound property changes and the component gets redrawn. Dragging stops.
-
-
-
-
-Full project illustrating the issue is in the public github project.
-https://github.com/michaelkariv/plain-draggable-angular-svg-test
+5. I had a [problem with multiple handles after change detection](https://github.com/anseki/plain-draggable/issues/112). 
+The library owner helped me resolve it. You are welcome to read the description on github, but TLDR, it works now. 
+Check out the compoinent `drag-us`. It shows multiple handles, and the way it updates PlainDraggable wrapper. 
+To test it, just change the text of the label that appears beneath all the components.
+In summary what makes the trick is `setTimeout` coupled with seprateing @Input into a getter and setter. The getter calls initialization of the draggables on change. 
 
 ![Screenshot2](./src/assets/screenshot2.png)
-
-To make dragging stop, just change the text of the label that appears beneath all the components.

@@ -18,18 +18,20 @@ export class DragUsComponent implements OnInit {
   @ViewChildren('draggables')
   public handles: QueryList<ElementRef> | undefined;
 
-  @Input() texts: string[] = ['1', '2'];
+  private _texts: string[] = ['1', '2'];
+  // splitting texts input into getter and setter allows calling initDraggable after a change
+  @Input() set texts(value: string[]) {
+    this._texts = value;
+    // this.initDraggable(); // Notice: This will result in drag no longer working after changing label text from outside in.
+    setTimeout(() => { this.initDraggable(); }, 0);
+  }
 
+  get texts(): string[] { return this._texts; }
 
   public ngOnInit(): void {
   }
 
   public initDraggable(): void {
-    const container = this.container.nativeElement;
-
-    const options = {
-      containment: container
-    };
     if(!this.handles) return;
     const handles = this.handles.toArray();
 
